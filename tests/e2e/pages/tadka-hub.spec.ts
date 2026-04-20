@@ -17,13 +17,11 @@ async function dismissModalIfPresent(page: Page) {
 
 // ── Helper: go to homepage → close modal → navigate to Tadka Hub ─────────────
 async function gotoTadkaHub(page: Page) {
-  await page.goto(HOME_URL);
-  await page.waitForLoadState('domcontentloaded');
+  await page.goto(HOME_URL, { waitUntil: 'domcontentloaded' });
   await page.waitForTimeout(2000);
   await dismissModalIfPresent(page);
 
-  await page.goto(TADKA_HUB_URL);
-  await page.waitForLoadState('domcontentloaded');
+  await page.goto(TADKA_HUB_URL, { waitUntil: 'domcontentloaded' });
   await page.waitForTimeout(3500);  // extra wait — video cards lazy-load after DOM ready
 
   // Scroll to trigger lazy content
@@ -35,7 +33,11 @@ async function gotoTadkaHub(page: Page) {
 // Each nested group has configure({ mode: 'serial' }) — failures within a
 // group abort only that group, never another group.
 // ─────────────────────────────────────────────────────────────────────────────
+// Disable Playwright video/trace/screenshot recording on video pages — must be top-level
+test.use({ video: 'off', trace: 'off', screenshot: 'off' });
+
 test.describe('Tadka Hub — Page Smoke Tests (Authenticated)', () => {
+  test.setTimeout(45000);   // 45s max per test — prevents hangs on video pages
   let page: Page;
 
   test.beforeAll(async ({ browser }) => {
@@ -61,8 +63,7 @@ test.describe('Tadka Hub — Page Smoke Tests (Authenticated)', () => {
 
     // TC_TH_01 — Homepage loads and modal is dismissed before navigation
     test('TC_TH_01: homepage loads and any modal is dismissed before navigating', async () => {
-      await page.goto(HOME_URL);
-      await page.waitForLoadState('domcontentloaded');
+      await page.goto(HOME_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(2000);
       await dismissModalIfPresent(page);
 
@@ -76,9 +77,8 @@ test.describe('Tadka Hub — Page Smoke Tests (Authenticated)', () => {
 
     // TC_TH_02 — Tadka Hub page loads with status 200
     test('TC_TH_02: Tadka Hub page loads with status 200', async () => {
-      const response = await page.goto(TADKA_HUB_URL);
+      const response = await page.goto(TADKA_HUB_URL, { waitUntil: 'domcontentloaded' });
       expect(response?.status()).toBe(200);
-      await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(3500);
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
       await page.waitForTimeout(1000);
@@ -298,8 +298,7 @@ test.describe('Tadka Hub — Page Smoke Tests (Authenticated)', () => {
     // TC_TH_20 — Full flow: homepage → dismiss modal → Tadka Hub → verify all
     test('TC_TH_20: full flow — homepage modal dismiss → Tadka Hub → all elements verified', async () => {
       // Step 1: Go to homepage
-      await page.goto(HOME_URL);
-      await page.waitForLoadState('domcontentloaded');
+      await page.goto(HOME_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(2000);
       console.log('Step 1 ✅ Homepage loaded');
 
@@ -311,8 +310,7 @@ test.describe('Tadka Hub — Page Smoke Tests (Authenticated)', () => {
       console.log('Step 2 ✅ No open modal');
 
       // Step 3: Navigate to Tadka Hub
-      await page.goto(TADKA_HUB_URL);
-      await page.waitForLoadState('domcontentloaded');
+      await page.goto(TADKA_HUB_URL, { waitUntil: 'domcontentloaded' });
       // Wait for at least one video card to appear before proceeding
       await page.waitForSelector('img[alt="Play"], img[alt="Pause"]', { timeout: 15000 });
       await page.waitForTimeout(2000);
