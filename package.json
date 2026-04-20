@@ -1,0 +1,27 @@
+{
+  "name": "sprite-tests",
+  "version": "1.0.0",
+  "description": "Playwright automation testing for Sprite project",
+  "scripts": {
+    "test": "playwright test",
+    "test:phase1": "playwright test --project=phase1-no-login",
+    "test:phase2": "playwright test --project=phase2-auth-setup",
+    "test:phase3": "playwright test --project=phase3-authenticated",
+    "test:api": "playwright test --project=api",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report reports/html",
+    "report:generate": "node scripts/generate-report.js",
+    "report:email": "node scripts/send-email.js",
+    "report:open": "start reports\\summary\\report.html",
+    "pipeline": "playwright test --project=phase3-authenticated && node scripts/generate-report.js && node scripts/send-email.js",
+    "pipeline:noemail": "playwright test --project=phase3-authenticated && node scripts/generate-report.js",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.43.0",
+    "@types/node": "^20.12.0",
+    "dotenv": "^16.4.0",
+    "nodemailer": "^8.0.5",
+    "typescript": "^5.4.0"
+  }
+}
