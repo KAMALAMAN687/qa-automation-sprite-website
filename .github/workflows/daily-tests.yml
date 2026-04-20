@@ -37,7 +37,7 @@ jobs:
       - name: Restore auth session
         run: |
           mkdir -p playwright/.auth
-          echo "${{ secrets.AUTH_SESSION }}" | base64 --decode | gunzip > playwright/.auth/user.json
+          echo "${{ secrets.AUTH_SESSION }}" | base64 --decode > playwright/.auth/user.json
           echo "Auth session restored"
 
       - name: Create .env
