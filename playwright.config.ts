@@ -105,8 +105,8 @@ export default defineConfig({
       ],
       use: {
         ...devices['Desktop Chrome'],
-        channel: 'chrome',
-        headless: false,
+        channel: process.env.CI ? undefined : 'chrome',
+        headless: !!process.env.CI,
         storageState: 'playwright/.auth/user.json',  // reuse saved login session
       },
     },
