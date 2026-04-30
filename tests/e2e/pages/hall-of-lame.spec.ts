@@ -29,14 +29,14 @@ test.describe('Hall of Lame — Page Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(HOL_URL);
+      await page.goto(HOL_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
     });
 
     // TC_HOL_01 — Page loads with status 200
     test('TC_HOL_01: Hall of Lame page loads with status 200', async () => {
-      const response = await page.goto(HOL_URL);
+      const response = await page.goto(HOL_URL, { waitUntil: 'domcontentloaded' });
       expect(response?.status()).toBe(200);
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
@@ -83,7 +83,7 @@ test.describe('Hall of Lame — Page Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(HOL_URL);
+      await page.goto(HOL_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
     });
@@ -119,7 +119,7 @@ test.describe('Hall of Lame — Page Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(HOL_URL);
+      await page.goto(HOL_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
     });
@@ -178,7 +178,7 @@ test.describe('Hall of Lame — Page Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(HOL_URL);
+      await page.goto(HOL_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
     });
@@ -215,7 +215,7 @@ test.describe('Hall of Lame — Page Tests (Authenticated)', () => {
 
     // TC_HOL_18 — Calendar icon button is present (for week selection)
     test('TC_HOL_18: calendar icon button is present', async () => {
-      await page.goto(HOL_URL);
+      await page.goto(HOL_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
       const calBtn = page.locator('button:has(svg use[href*="calendar2"])').first();
@@ -232,7 +232,7 @@ test.describe('Hall of Lame — Page Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(HOL_URL);
+      await page.goto(HOL_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
     });
@@ -270,7 +270,7 @@ test.describe('Hall of Lame — Page Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(HOL_URL);
+      await page.goto(HOL_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
     });
@@ -301,7 +301,7 @@ test.describe('Hall of Lame — Page Tests (Authenticated)', () => {
 
     // TC_HOL_23 — Full flow: load page, verify heading + table + controls
     test('TC_HOL_23: full flow — Hall of Lame shows heading, table data, and controls', async () => {
-      await page.goto(HOL_URL);
+      await page.goto(HOL_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
 

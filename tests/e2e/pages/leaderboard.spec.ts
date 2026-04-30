@@ -76,14 +76,14 @@ test.describe('Leaderboard Page — Smoke Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(LEADERBOARD_URL);
+      await page.goto(LEADERBOARD_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
     });
 
     // TC_LB_01 — Leaderboard page loads with status 200
     test('TC_LB_01: leaderboard page loads with status 200', async () => {
-      const response = await page.goto(LEADERBOARD_URL);
+      const response = await page.goto(LEADERBOARD_URL, { waitUntil: 'domcontentloaded' });
       expect(response?.status()).toBe(200);
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
@@ -141,7 +141,7 @@ test.describe('Leaderboard Page — Smoke Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(LEADERBOARD_URL);
+      await page.goto(LEADERBOARD_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
     });
@@ -233,7 +233,7 @@ test.describe('Leaderboard Page — Smoke Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(LEADERBOARD_URL);
+      await page.goto(LEADERBOARD_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
     });
@@ -267,7 +267,7 @@ test.describe('Leaderboard Page — Smoke Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(LEADERBOARD_URL);
+      await page.goto(LEADERBOARD_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
       await selectDate(page, 17, 'May', 2024);
@@ -320,7 +320,7 @@ test.describe('Leaderboard Page — Smoke Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(LEADERBOARD_URL);
+      await page.goto(LEADERBOARD_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
       await selectDate(page, 24, 'May', 2024);
@@ -373,7 +373,7 @@ test.describe('Leaderboard Page — Smoke Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(LEADERBOARD_URL);
+      await page.goto(LEADERBOARD_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
       await selectDate(page, 10, 'May', 2024);
@@ -426,7 +426,7 @@ test.describe('Leaderboard Page — Smoke Tests (Authenticated)', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.beforeAll(async () => {
-      await page.goto(LEADERBOARD_URL);
+      await page.goto(LEADERBOARD_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
     });
@@ -494,7 +494,7 @@ test.describe('Leaderboard Page — Smoke Tests (Authenticated)', () => {
 
     // TC_LB_35 — Full flow: select 17 May 2024, verify all elements
     test('TC_LB_35: full flow — select 17 May 2024, verify avatar + coins + prize + YOUR RANK', async () => {
-      await page.goto(LEADERBOARD_URL);
+      await page.goto(LEADERBOARD_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
 

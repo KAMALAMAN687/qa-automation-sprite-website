@@ -49,7 +49,7 @@ async function openReferralModal(page: Page): Promise<boolean> {
   }
 
   // Path 2 — Profile page > Refer Another button
-  await page.goto(PROFILE_URL);
+  await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
   await page.waitForLoadState('domcontentloaded');
   await page.waitForTimeout(2000);
 
@@ -108,7 +108,7 @@ test.describe('Refer a Friend — Smoke Tests (Authenticated)', () => {
   test.describe('Find Entry Point & Open Modal', () => {
 
     test.beforeAll(async () => {
-      await page.goto(HOME_URL);
+      await page.goto(HOME_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
     });
@@ -128,7 +128,7 @@ test.describe('Refer a Friend — Smoke Tests (Authenticated)', () => {
 
       if (!isVisible) {
         // Fall back: check Profile page for the entry point
-        await page.goto(PROFILE_URL);
+        await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
         await page.waitForLoadState('domcontentloaded');
         await page.waitForTimeout(2000);
         const referralsSection = page.locator('text=/My Referrals/i').first();
@@ -313,7 +313,7 @@ test.describe('Refer a Friend — Smoke Tests (Authenticated)', () => {
 
     test.beforeAll(async () => {
       await dismissModalIfPresent(page);
-      await page.goto(PROFILE_URL);
+      await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
     });
@@ -428,7 +428,7 @@ test.describe('Refer a Friend — Smoke Tests (Authenticated)', () => {
       // TC_RF_13 navigated away to /send-reminder, so reload profile and scroll
       // to the My Referrals section to ensure the section data is rendered before
       // reading body text (lazy-loaded content).
-      await page.goto(PROFILE_URL);
+      await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('networkidle');
       await page.waitForTimeout(2000);
 
@@ -453,7 +453,7 @@ test.describe('Refer a Friend — Smoke Tests (Authenticated)', () => {
 
     // TC_RF_15 — Full end-to-end summary: log all captured values for easy debugging
     test('TC_RF_15: full referral flow summary — log referral code and verified mobile', async () => {
-      await page.goto(PROFILE_URL);
+      await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);
 

@@ -6,7 +6,7 @@ const CONTEST_URL = `${HOME_URL}/contest`;
 
 // ── Helper: navigate to Contest page ─────────────────────────────────────────
 async function gotoContest(page: Page) {
-  await page.goto(CONTEST_URL);
+  await page.goto(CONTEST_URL, { waitUntil: 'domcontentloaded' });
   await page.waitForLoadState('domcontentloaded');
   await page.waitForTimeout(2500);
 }
@@ -51,7 +51,7 @@ test.describe('Contest — Page Tests (Authenticated)', () => {
 
     // TC_CT_01 — Contest page loads with status 200
     test('TC_CT_01: Contest page loads with status 200', async () => {
-      const response = await page.goto(CONTEST_URL);
+      const response = await page.goto(CONTEST_URL, { waitUntil: 'domcontentloaded' });
       expect(response?.status()).toBe(200);
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2000);

@@ -14,7 +14,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
       storageState: 'playwright/.auth/user.json',
     });
     page = await context.newPage();
-    await page.goto(PROFILE_URL);
+    await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
   });
@@ -27,7 +27,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
 
   // TC_PF_01 — Profile page loads successfully
   test('TC_PF_01: profile page loads with status 200', async () => {
-    const response = await page.goto(PROFILE_URL);
+    const response = await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
     expect(response?.status()).toBe(200);
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
@@ -118,7 +118,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
     await page.screenshot({ path: 'reports/screenshots/TC_PF_08-edit-form.png' });
 
     // Go back to profile page for next tests
-    await page.goto(PROFILE_URL);
+    await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
   });
@@ -305,7 +305,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
 
   // TC_PF_28 — Profile page shows correct URL
   test('TC_PF_28: profile page URL is correct', async () => {
-    await page.goto(PROFILE_URL);
+    await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     expect(page.url()).toContain('/profile');
   });
@@ -334,7 +334,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
 
   // TC_PF_31 — Edit profile: click pencil, update email, save, verify on profile
   test('TC_PF_31: edit profile — update email, save, verify updated data on profile', async () => {
-    await page.goto(PROFILE_URL);
+    await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
 
@@ -377,7 +377,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
     await page.screenshot({ path: 'reports/screenshots/TC_PF_31-02-after-save.png' });
 
     // Navigate back to profile and verify the name is still correct
-    await page.goto(PROFILE_URL);
+    await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
 
@@ -392,7 +392,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
 
   // TC_PF_32 — Up to 3 address cards are visible in Address section
   test('TC_PF_32: address section shows up to 3 address entries', async () => {
-    await page.goto(PROFILE_URL);
+    await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
 
@@ -518,7 +518,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
 
   // TC_PF_37 — Click Send Reminder in referrals, verify page opens, click Resend
   test('TC_PF_37: Send Reminder opens referral page and Resend is available', async () => {
-    await page.goto(PROFILE_URL);
+    await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
 
@@ -558,7 +558,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
         const resendVisible = await resendBtn.isVisible({ timeout: 3000 }).catch(() => false);
         console.log(`Resend visible on same page: ${resendVisible}`);
         await page.screenshot({ path: 'reports/screenshots/TC_PF_37-send-reminder.png' });
-        await page.goto(PROFILE_URL);
+        await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
         await page.waitForLoadState('domcontentloaded');
         await page.waitForTimeout(2000);
       }
@@ -612,7 +612,7 @@ test.describe('Profile Page — Smoke Tests (Authenticated)', () => {
 
   // TC_PF_39 — Click HALL-OF-LAME, navigate to that page, go back to profile
   test('TC_PF_39: HALL-OF-LAME link navigates to hall-of-lame page and back', async () => {
-    await page.goto(PROFILE_URL);
+    await page.goto(PROFILE_URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
 

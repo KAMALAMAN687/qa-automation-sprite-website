@@ -50,7 +50,7 @@ async function dismissModalIfPresent(page: Page) {
 
 // ── Helper: navigate + settle + dismiss modal ──────────────────────────────────
 async function gotoAndSettle(page: Page, url: string) {
-  await page.goto(url);
+  await page.goto(url, { waitUntil: 'domcontentloaded' });
   await page.waitForLoadState('networkidle');
   await dismissModalIfPresent(page);
 }
@@ -160,7 +160,7 @@ test.describe('Submit Your Joke — Full Flow (Authenticated)', () => {
 
   // TC_SJ_01 — Submit Your Joke page loads with status 200
   test('TC_SJ_01: Submit Your Joke page loads successfully', async () => {
-    const response = await page.goto(SUBMIT_JOKE_URL);
+    const response = await page.goto(SUBMIT_JOKE_URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('networkidle');
     await dismissModalIfPresent(page);
     expect(response?.status()).toBe(200);
@@ -1242,7 +1242,7 @@ test.describe('Submit Your Joke — Full Flow (Authenticated)', () => {
     });
 
     // Navigate to profile — triggers the data API calls
-    await page.goto(`${HOME_URL}/profile`);
+    await page.goto(`${HOME_URL}/profile`, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(2000);
 

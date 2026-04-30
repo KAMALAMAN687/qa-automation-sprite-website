@@ -14,7 +14,7 @@ test.describe('Homepage — All Sections', () => {
       storageState: 'playwright/.auth/user.json',
     });
     page = await context.newPage();
-    await page.goto(URL);
+    await page.goto(URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
   });
@@ -27,7 +27,7 @@ test.describe('Homepage — All Sections', () => {
 
   // TC_HP_01 — Homepage loads successfully
   test('TC_HP_01: homepage loads with status 200', async () => {
-    const response = await page.goto(URL);
+    const response = await page.goto(URL, { waitUntil: 'domcontentloaded' });
     expect(response?.status()).toBe(200);
     await page.waitForLoadState('domcontentloaded');
     await page.screenshot({ path: 'reports/screenshots/TC_HP_01-homepage-loaded.png', fullPage: true });
@@ -49,7 +49,7 @@ test.describe('Homepage — All Sections', () => {
 
   // TC_HP_04 — Coming Soon banner is visible
   test('TC_HP_04: coming soon banner is visible', async () => {
-    await page.goto(URL);
+    await page.goto(URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     const banner = page.locator('text=/COMING SOON|CONTEST IS OVER|EXCITING NEW REWARDS/i').first();
     await expect(banner).toBeVisible({ timeout: 8000 });
@@ -153,7 +153,7 @@ test.describe('Homepage — All Sections', () => {
     await submitBtn.click();
     await expect(page).toHaveURL(/submit-your-joke/, { timeout: 8000 });
     await page.screenshot({ path: 'reports/screenshots/TC_HP_14-navigate-submit-joke.png' });
-    await page.goto(URL);
+    await page.goto(URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
   });
 
@@ -212,7 +212,7 @@ test.describe('Homepage — All Sections', () => {
 
   // TC_HP_20 — Surprise Me button is visible
   test('TC_HP_20: Surprise Me button is visible', async () => {
-    await page.goto(URL);
+    await page.goto(URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(1500);
     const surpriseBtn = page.locator('text=/Surprise Me/i').first();
@@ -234,7 +234,7 @@ test.describe('Homepage — All Sections', () => {
 
   // TC_HP_22 — Page scrolls smoothly from top to bottom
   test('TC_HP_22: page scrolls smoothly top to bottom', async () => {
-    await page.goto(URL);
+    await page.goto(URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await page.waitForTimeout(1000);
@@ -266,7 +266,7 @@ test.describe('Homepage — All Sections', () => {
   test('TC_HP_25: no console errors on homepage', async () => {
     const errors: string[] = [];
     page.on('pageerror', (err) => errors.push(err.message));
-    await page.goto(URL);
+    await page.goto(URL, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('domcontentloaded');
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await page.waitForTimeout(2000);

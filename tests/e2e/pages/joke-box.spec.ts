@@ -17,7 +17,7 @@ async function scrollToJokeBox(page: Page) {
 
 // ── Helper: navigate to homepage and scroll to Joke Box ──────────────────────
 async function gotoJokeBox(page: Page) {
-  await page.goto(HOME_URL);
+  await page.goto(HOME_URL, { waitUntil: 'domcontentloaded' });
   await page.waitForLoadState('domcontentloaded');
   await page.waitForTimeout(2500);
   await scrollToJokeBox(page);
@@ -53,7 +53,7 @@ test.describe('Joke Box — Homepage Section (Authenticated)', () => {
 
     // TC_JB_01 — Homepage loads with status 200
     test('TC_JB_01: homepage loads with status 200', async () => {
-      const response = await page.goto(HOME_URL);
+      const response = await page.goto(HOME_URL, { waitUntil: 'domcontentloaded' });
       expect(response?.status()).toBe(200);
       await page.waitForLoadState('domcontentloaded');
       await page.waitForTimeout(2500);
